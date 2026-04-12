@@ -1,0 +1,137 @@
+---
+import { Icon } from "astro-icon/components";
+
+const navLinks = [
+	{ label: "Projekty", href: "/projects" },
+	{ label: "Ceník", href: "/pricing" },
+	{ label: "O mně", href: "/about" },
+];
+
+const connections = [
+	{
+		label: "martokanweb@gmail.com",
+		href: "mailto:martokanweb@gmail.com",
+		icon: "mail",
+	},
+	{ label: "Github", href: "https://github.com/martokan", icon: "github" },
+];
+---
+
+<footer class="bg-surface">
+	<div class="container">
+		<div class="even-columns link-section">
+			<div class="flow" style="--flow-space: 0.3rem;">
+				<p class="fs-h3 fw-bold text-brand">Marek Sládek</p>
+				<p class="fs-small text-muted">WEBOVÝ VÝVOJÁŘ</p>
+				<p class="fs-small stat-green available">DOSTUPNÝ PRO PROJEKT</p>
+			</div>
+			<div>
+				<nav>
+					<h3 class="fs-body">Navigace</h3>
+					<ul role="list" class="footer-list">
+						{
+							navLinks.map((link) => (
+								<li>
+									<a href={link.href}>{link.label}</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+			</div>
+			<div>
+				<h3 class="fs-body">Spojení</h3>
+				<ul role="list" class="footer-list">
+					{
+						connections.map((connection) => (
+							<li class="ext-link">
+								<Icon name={`lucide:${connection.icon}`} />
+								<a href={connection.href}>{connection.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<p class="subfooter | fs-small text-muted">
+		&copy; 2026 Všechna práva vyhrazena. Vytvořeno pomocí Astro.
+	</p>
+	<button type="button" data-cc="show-preferencesModal"
+		>Nastavení cookies</button
+	>
+</footer>
+
+<style>
+	footer {
+		padding-top: var(--space-md);
+		border-top: 1px solid var(--clr-border);
+	}
+
+	footer h3 {
+		margin-bottom: var(--space-xs);
+	}
+
+	.footer-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.footer-list a {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+		font-size: var(--fs-small);
+		color: var(--txt-muted);
+		transition: all 0.2s ease;
+	}
+
+	.footer-list a:hover {
+		color: var(--clr-brand);
+	}
+
+	.link-section {
+		padding-bottom: var(--space-sm);
+	}
+
+	.available {
+		display: flex;
+		align-items: center;
+	}
+
+	.available::before {
+		content: "";
+		margin-right: 0.5rem;
+		display: inline-block;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #22aa44;
+		box-shadow: 0 0 6px #22aa44;
+		animation: pulse 2.4s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+			box-shadow: 0 0 6px #22aa44;
+		}
+		50% {
+			opacity: 0.5;
+			box-shadow: 0 0 2px #22aa44;
+		}
+	}
+
+	.ext-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.subfooter {
+		padding: var(--space-sm);
+		text-align: center;
+	}
+</style>

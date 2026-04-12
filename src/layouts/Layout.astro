@@ -1,0 +1,82 @@
+---
+import Font from "astro/components/Font.astro";
+import "../styles/global.css";
+
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import CookieConsent from "../components/CookieConsent.astro";
+---
+
+<!doctype html>
+<html lang="cs">
+	<head>
+		<!-- SEO -->
+		<title>MartWeb</title>
+		<meta
+			name="description"
+			content="Tvořím rychlé a moderní weby na míru. Neváhej a něco společně vytvoříme!"
+		/>
+		<meta name="author" content="Marek Sládek" />
+		<link rel="canonical" href="https://martweb.cz" />
+
+		<!-- Open Graph -->
+		<meta property="og:title" content="MartWeb | Webový vývojář" />
+		<meta
+			property="og:description"
+			content="Tvořím rychlé a moderní weby na míru."
+		/>
+		<meta property="og:image" content="https://martweb.cz/og-image.png" />
+		<meta property="og:url" content="https://martweb.cz" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="cs_CZ" />
+
+		<!-- Twitter/X card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="MartWeb — Webový vývojář" />
+		<meta
+			name="twitter:description"
+			content="Tvořím rychlé, moderní weby na míru."
+		/>
+		<meta name="twitter:image" content="https://yoursite.com/og-image.png" />
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<Font cssVariable="--font-heading" />
+		<Font cssVariable="--font-body" />
+	</head>
+	<body>
+		<div class="glow-bg"></div>
+		<Navbar />
+		<slot />
+		<Footer />
+		<CookieConsent />
+	</body>
+</html>
+
+<style>
+	.glow-bg {
+		position: fixed;
+		top: -200px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 600px;
+		height: 400px;
+		background: radial-gradient(
+			ellipse at center,
+			rgba(153, 136, 204, 0.05) 0%,
+			transparent 70%
+		);
+		pointer-events: none;
+		z-index: -1;
+	}
+</style>
+
+<script>
+	// Safari :active fix
+	document.addEventListener("touchstart", function () {}, { passive: true });
+</script>

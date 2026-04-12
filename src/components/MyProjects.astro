@@ -1,0 +1,130 @@
+---
+import { Icon } from "astro-icon/components";
+
+const projects: Project[] = [
+	{
+		title: "Pualani Creative",
+		description:
+			"Webové portfolio pro fotografy s integrovaným rezervačním systémem.",
+		status: "Dokončeno",
+		tags: ["Astro", "Tailwind", "TypeScript", "Decap CMS", "Cloudflare"],
+		href: "https://pualanicreative.com",
+	},
+	{
+		title: "Guiddo",
+		description:
+			"Komunitní platforma pro výměnu znalostí a dovedností. Zodpovídám za vývoj backendu a real-time komunikaci.",
+		status: "Probíhá",
+		tags: ["PostgreSQL", "WebSockets", "Node.js", "Backend"],
+		href: "#",
+	},
+	{
+		title: "Guiddo",
+		description:
+			"Komunitní platforma pro výměnu znalostí a dovedností. Zodpovídám za vývoj backendu a real-time komunikaci.",
+		status: "Probíhá",
+		tags: ["PostgreSQL", "WebSockets", "Node.js", "Backend"],
+		href: "#",
+	},
+];
+
+interface Project {
+	title: string;
+	description: string;
+	status: string;
+	tags: string[];
+	href: string;
+}
+
+function getStatus(status: string) {
+	switch (status) {
+		case "Probíhá":
+			return "stat-orange";
+		case "Dokončeno":
+			return "stat-green";
+		default:
+			"";
+	}
+}
+---
+
+<section class="padding-block-lg">
+	<div class="container flow" style="--flow-space: 3rem;">
+		<h2 class="text-center">Prohlédni si mé projekty</h2>
+		<div class="three-columns">
+			{
+				projects.map((project) => (
+					<div class="card | project-card">
+						<div class="project-header">
+							<h3>{project.title}</h3>
+							<span class={`${getStatus(project.status)} fs-small`}>
+								{project.status}
+							</span>
+						</div>
+						<p class="fs-small">{project.description}</p>
+						<div class="cluster">
+							{project.tags.map((tag) => (
+								<p class="tag">{tag}</p>
+							))}
+						</div>
+						<div class="project-footer">
+							<a class="link fs-small" href={project.href} target="__blank">
+								<Icon name="lucide:external-link" />
+								Odkaz na stránku
+							</a>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.three-columns {
+		display: grid;
+		gap: var(--space-md);
+	}
+
+	@media (min-width: 48em) {
+		.three-columns {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		height: 100%;
+	}
+
+	.project-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.project-footer {
+		margin-top: auto;
+		padding-top: 0.7rem;
+		border-top: 1px solid var(--clr-border);
+	}
+
+	.link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+
+	a {
+		text-decoration: none;
+		color: var(--txt-muted);
+		transition: color 0.3s ease-in-out;
+	}
+
+	a:hover {
+		color: var(--clr-brand);
+	}
+</style>

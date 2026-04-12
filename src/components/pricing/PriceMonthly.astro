@@ -1,0 +1,108 @@
+---
+import { webMaintenance } from "../../assets/data/pricing";
+---
+
+<div class="price-monthly">
+	<h2>Měsíční správa</h2>
+	<div class="price-cards">
+		{
+			webMaintenance.map((c) => (
+				<div
+					class:list={["card", "flow", { "card-recommended": c.recommended }]}
+				>
+					<span class="price-tier fs-small text-muted">{c.tier}</span>
+					<h3 class="fs-h4 text-accent">{c.subtitle}</h3>
+					<p class="fs-small text-muted">{c.description}</p>
+					<p class="text-brand fs-h4">
+						{c.price} <span class="fs-small text-muted">/ měsíc</span>
+					</p>
+					<hr />
+					<ul role="list" class="feature-list">
+						{c.features.map((f) => (
+							<li class="feature" title={f.description}>
+								<div>
+									<p class="fs-small">{f.title}</p>
+									<p class="fs-small text-muted">{f.description}</p>
+								</div>
+							</li>
+						))}
+					</ul>
+					{c.recommended && (
+						<span class="recommended text-dark">Doporučeno</span>
+					)}
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	.card {
+		position: relative;
+	}
+
+	.card-recommended {
+		background-color: linear-gradient(
+			to bottom right,
+			var(--bg-main),
+			var(--bg-surface)
+		);
+		border-color: var(--clr-accent);
+	}
+
+	.recommended {
+		position: absolute;
+		padding: 0.3rem 0.5rem;
+		margin: 0;
+		top: 0;
+		right: 7%;
+		font-size: 0.75rem;
+		background-color: var(--clr-accent);
+		border-end-end-radius: var(--border-radius);
+		border-end-start-radius: var(--border-radius);
+	}
+
+	.price-monthly {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
+	.price-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: var(--space-sm);
+	}
+
+	.price-tier {
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.feature-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	.feature {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	.feature::before {
+		content: "✓";
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		margin-right: var(--space-xs);
+		color: var(--clr-accent);
+		border: 1px solid var(--clr-accent);
+		border-radius: 50%;
+		background-color: color-mix(in srgb, var(--clr-accent), transparent 90%);
+	}
+</style>

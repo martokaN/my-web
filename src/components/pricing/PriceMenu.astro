@@ -1,0 +1,32 @@
+---
+import PriceBase from "./PriceBase.astro";
+import PriceAddons from "./PriceAddons.astro";
+import PriceMonthly from "./PriceMonthly.astro";
+---
+
+<section>
+	<div class="container padding-block-lg price-menu">
+		<div class="text-center section-header">
+			<h1>Transparentní ceník</h1>
+			<p class="text-muted">Žádná překvapení, víte přesně za co platíte.</p>
+		</div>
+
+		<!-- Základ webu -->
+		<PriceBase />
+
+		<!-- Doplňky -->
+		<PriceAddons />
+
+		<!-- Správa webu -->
+		<PriceMonthly />
+	</div>
+</section>
+
+<style>
+	.price-menu {
+		/* --max-width: 980px; */
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+</style>

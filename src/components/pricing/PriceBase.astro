@@ -1,0 +1,65 @@
+---
+import { webBase } from "../../assets/data/pricing";
+---
+
+<div class="price-base">
+	<h2>Základ webu</h2>
+	<div class="card">
+		<div class="even-columns">
+			<div class="flow">
+				<h3>{webBase.title}</h3>
+				<p class="text-muted fs-small">{webBase.description}</p>
+				<ul role="list" class="features-list">
+					{
+						webBase.features.map((feature) => (
+							<li class="fs-small feature">{feature}</li>
+						))
+					}
+				</ul>
+			</div>
+			<div class="price">
+				<p class="fs-small text-muted">OD</p>
+				<p class="fs-h3 text-brand">{webBase.price}</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.price-base {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
+	.price {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+	}
+
+	.features-list {
+		display: flex;
+		flex-direction: column;
+		gap: calc(var(--space-xs) / 2);
+	}
+
+	.feature {
+		display: flex;
+		align-items: center;
+	}
+
+	.feature::before {
+		content: "✓";
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		margin-right: var(--space-xs);
+		color: var(--clr-accent);
+		border: 1px solid var(--clr-accent);
+		border-radius: 50%;
+		background-color: color-mix(in srgb, var(--clr-accent), transparent 90%);
+	}
+</style>

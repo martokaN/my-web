@@ -1,0 +1,442 @@
+/* ----- */
+/* RESET */
+/* ----- */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Remove default margin, padding and inherit the font */
+* {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+	list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+/* Set core body defaults */
+body {
+	text-rendering: optimizeSpeed;
+	line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+	max-width: 100%;
+	display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+:root {
+	/* COLORS */
+	--bg-main: #19191f;
+	--bg-surface: #16161a;
+	--bg-surface-hover: #1e1e24;
+
+	--clr-border: #393942;
+	--clr-brand: #e2e2e5;
+	--clr-accent: #9988cc;
+
+	--stat-green: #409840;
+	--stat-orange: #a06820;
+	--stat-red: #983030;
+
+	--txt-main: #b4b4be;
+	--txt-muted: #6b6b88;
+
+	--ff-heading: var(--font-heading), Arial, sans-serif;
+	--ff-body: var(--font-body), Tahoma, sans-serif;
+
+	--fw-regular: 400;
+	--fw-bold: 700;
+
+	--fs-small: 0.8125rem;
+	--fs-body: 1rem;
+	--fs-h4: 1.125rem;
+	--fs-h3: 1.25rem;
+	--fs-h2: 1.875rem;
+	--fs-h1: 2.25rem;
+	--fs-hero: 4rem;
+
+	/* OTHERS */
+	--space-xs: 0.5rem; /* tight pairs — label + value, heading + subheading */
+	--space-sm: 1rem; /* related content — p + p, li + li, h3 + p */
+	--space-md: 2.25rem; /* between components — card + card, h2 + card */
+	--space-lg: 4rem;
+
+	--nav-height: 5rem;
+
+	--border-radius: 10px;
+	--transition-slow: 0.4s ease-out;
+	--transition-fast: 0.2s ease-out;
+}
+
+@media (min-width: 48em) {
+	:root {
+		--fs-small: 0.875rem;
+		--fs-body: 1.0625rem;
+		--fs-h4: 1.25rem;
+		--fs-h3: 1.5rem;
+		--fs-h2: 2.125rem;
+		--fs-h1: 2.875rem;
+		--fs-hero: 5rem;
+	}
+}
+
+/* GLOBAL ELEMENT STYLES */
+body {
+	font-family: var(--ff-body);
+	font-weight: var(--fw-regular);
+	font-size: var(--fs-body);
+	line-height: 1.5;
+	color: var(--txt-main);
+	background-color: var(--bg-main);
+}
+
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+	pointer-events: none;
+	z-index: -1;
+	opacity: 0.4;
+}
+
+h1 {
+	font-family: var(--ff-heading);
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h1);
+	line-height: 1.1;
+	color: var(--clr-brand);
+}
+
+h2 {
+	font-family: var(--ff-heading);
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h2);
+	line-height: 1.1;
+	color: var(--clr-brand);
+}
+
+h3 {
+	font-family: var(--ff-heading);
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h3);
+	line-height: 1.1;
+	color: var(--clr-accent);
+}
+
+h4 {
+	font-family: var(--ff-heading);
+	font-size: var(--fs-h4);
+	line-height: 1.1;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: var(--clr-border);
+}
+
+button {
+	appearance: none;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font: inherit;
+	color: inherit;
+}
+
+[data-icon] {
+	display: inline;
+	vertical-align: middle;
+}
+
+/* UTILITY CLASSES */
+.fs-small {
+	font-size: var(--fs-small);
+}
+.fs-body {
+	font-size: var(--fs-body);
+}
+.fs-h4 {
+	font-size: var(--fs-h4);
+}
+.fs-h3 {
+	font-size: var(--fs-h3);
+}
+.fs-h2 {
+	font-size: var(--fs-h2);
+}
+.fs-h1 {
+	font-size: var(--fs-h1);
+}
+.fs-hero {
+	font-size: var(--fs-hero);
+}
+
+.fw-regular {
+	font-weight: var(--fw-regular);
+}
+.fw-bold {
+	font-weight: var(--fw-bold);
+}
+
+.text-main {
+	color: var(--txt-main);
+}
+.text-muted {
+	color: var(--txt-muted);
+}
+.text-brand {
+	color: var(--clr-brand);
+}
+.text-accent {
+	color: var(--clr-accent);
+}
+.text-dark {
+	color: var(--bg-main);
+}
+
+.stat-green {
+	color: var(--stat-green);
+}
+.stat-orange {
+	color: var(--stat-orange);
+}
+.stat-red {
+	color: var(--stat-red);
+}
+
+.bg-main {
+	background-color: var(--bg-main);
+}
+.bg-surface {
+	background-color: var(--bg-surface);
+}
+.bg-brand {
+	background-color: var(--clr-brand);
+}
+.bg-accent {
+	background-color: var(--clr-accent);
+}
+
+.container {
+	--max-width: 1150px;
+	width: min(var(--max-width), 100% - 2 * var(--space-sm));
+	margin-inline: auto;
+}
+
+.flow > * + * {
+	margin-top: var(--flow-space, var(--space-sm));
+	/* outline: 1px solid red; */
+}
+
+.section-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 55ch;
+	margin-inline: auto;
+	gap: var(--space-sm);
+}
+
+.even-columns {
+	display: grid;
+	gap: var(--space-md);
+}
+
+.cluster {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	align-items: center;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (min-width: 48em) {
+	.even-columns {
+		grid-auto-flow: column;
+		grid-auto-columns: 1fr;
+	}
+}
+
+.padding-block-md {
+	padding-block: var(--space-md);
+}
+
+.padding-block-lg {
+	padding-block: var(--space-lg);
+}
+
+.text-center {
+	text-align: center;
+}
+
+/* Buttons */
+
+.btn {
+	display: inline-block;
+	text-decoration: none;
+	font-size: var(--fs-body);
+	border-radius: var(--border-radius);
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+}
+
+.primary-btn {
+	background-color: var(--clr-accent);
+	color: var(--clr-brand);
+	transition:
+		transform var(--transition-fast),
+		filter var(--transition-fast);
+	will-change: transform;
+	backface-visibility: hidden;
+}
+
+.primary-btn:hover,
+.primary-btn:focus-visible {
+	transform: scale(1.03);
+}
+
+.primary-btn:active {
+	transform: scale(0.97);
+	filter: brightness(0.9);
+}
+
+.secondary-btn {
+	border: 1px solid var(--clr-accent);
+	color: var(--clr-accent);
+	transition:
+		background-color var(--transition-fast),
+		color var(--transition-fast),
+		transform var(--transition-fast),
+		filter var(--transition-fast);
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus-visible {
+	background-color: var(--clr-accent);
+	color: var(--clr-brand);
+}
+
+.secondary-btn:active {
+	transform: scale(0.97);
+	filter: brightness(0.9);
+}
+
+/* Tag */
+
+.tag {
+	display: inline-block;
+	padding: 0.2rem 0.5rem;
+	border-radius: 1rem;
+	border: 1px solid var(--clr-border);
+	font-size: 0.75rem;
+	color: var(--txt-muted);
+	background-color: var(--bg-surface);
+	transition:
+		border-color 0.2s ease,
+		color 0.2s ease;
+	cursor: default;
+}
+
+.tag:hover {
+	border-color: var(--clr-accent);
+	color: var(--clr-brand);
+}
+
+/* Card */
+.card {
+	display: flex;
+	flex-direction: column;
+	padding: var(--space-md);
+	border: 1px solid var(--clr-border);
+	border-radius: var(--border-radius);
+	background-color: var(--bg-surface);
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+	box-shadow: 0 0 20px color-mix(in srgb, var(--clr-accent) 10%, transparent);
+}
+
+/* Unordered list - check list */
+.check-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.check-list li {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+.check-list li::before {
+	content: "✓";
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	margin-right: var(--space-xs);
+	color: var(--clr-accent);
+	border: 1px solid var(--clr-accent);
+	border-radius: 50%;
+	background-color: color-mix(in srgb, var(--clr-accent), transparent 90%);
+}

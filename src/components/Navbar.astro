@@ -1,0 +1,198 @@
+---
+import { Icon } from "astro-icon/components";
+
+const navLinks = [
+	{ label: "Projekty", href: "/projects" },
+	{ label: "Ceník", href: "/pricing" },
+	{ label: "O mně", href: "/about" },
+];
+---
+
+<header class="bg-surface">
+	<div class="container">
+		<nav class="navigation">
+			<a href="/" class="text-brand fw-bold fs-h2 logo">
+				<Icon name="logo-icon" class="logo-icon" />
+				Mart<span class="text-accent">Web</span></a
+			>
+
+			<button
+				class="hamburger-menu"
+				aria-expanded="false"
+				aria-label="Otevřít menu"
+			>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+
+			<ul role="list" class="nav-list">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a href={link.href} class="link">
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+				<li class="mobile-cta">
+					<a href="/#contact-form" class="btn secondary-btn">Napiš mi</a>
+				</li>
+			</ul>
+
+			<a href="/#contact-form" class="desktop-cta btn primary-btn">Napiš mi</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	header {
+		position: relative;
+		border-bottom: 1px solid var(--clr-border);
+	}
+	.logo {
+		display: flex;
+		align-items: center;
+		font-family: var(--ff-heading);
+		text-decoration: none;
+		transition: text-shadow 0.2s ease-out;
+	}
+	.logo:hover {
+		text-shadow: 1px 3px 10px rgba(145, 215, 227, 0.35);
+	}
+	.navigation {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: var(--nav-height);
+	}
+	.nav-list {
+		list-style: none;
+		display: none;
+		flex-direction: row;
+		gap: var(--space-sm);
+		font-size: var(--fs-body);
+	}
+	.nav-list .link {
+		text-decoration: none;
+		padding: 0.2rem 0.5rem;
+		color: var(--clr-brand);
+		transition: border-color 0.2s ease-out;
+		border: 1px dashed transparent;
+	}
+	.nav-list .link:hover,
+	.nav-list .link:focus-visible {
+		border: 1px dashed var(--clr-accent);
+		border-radius: var(--border-radius);
+		background-color: var(--bg-surface-hover);
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.nav-list.is-open {
+		position: absolute;
+		top: var(--nav-height);
+		left: 0;
+		right: 0;
+		padding: var(--space-sm);
+		background-color: var(--bg-surface);
+		border-top: 1px solid var(--clr-border);
+		border-bottom: 1px solid var(--clr-border);
+		display: flex;
+		flex-direction: column;
+		z-index: 1;
+		animation: fadeIn 0.3s ease-out;
+	}
+
+	.desktop-cta {
+		display: none;
+	}
+
+	.logo-icon {
+		width: 3.5rem;
+		height: 3.5rem;
+		margin-right: 0.5rem;
+	}
+
+	.icon {
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.hamburger-menu {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 0.3rem;
+	}
+
+	.hamburger-menu.is-open span:nth-child(1) {
+		transform: translateY(8px) rotate(45deg);
+	}
+	.hamburger-menu.is-open span:nth-child(2) {
+		opacity: 0;
+	}
+	.hamburger-menu.is-open span:nth-child(3) {
+		transform: translateY(-8px) rotate(-45deg);
+	}
+
+	.hamburger-menu span {
+		display: block;
+		background-color: var(--clr-accent);
+		width: 1.5rem;
+		height: 2px;
+		border-radius: 1px;
+		transform-origin: center;
+		transition:
+			0.3s transform ease,
+			opacity 0.2s ease;
+	}
+
+	@media (min-width: 48em) {
+		.nav-list {
+			display: flex;
+		}
+
+		.mobile-cta {
+			display: none;
+		}
+
+		.hamburger-menu {
+			display: none;
+		}
+
+		.desktop-cta {
+			display: inline-block;
+		}
+	}
+</style>
+
+<script>
+	const hamBtn = document.querySelector<HTMLButtonElement>(".hamburger-menu");
+	const navList = document.querySelector<HTMLDivElement>(".nav-list");
+	const mediaQuery = window.matchMedia("(min-width: 48em)");
+
+	hamBtn?.addEventListener("click", () => {
+		const isOpen = navList?.classList.toggle("is-open");
+		hamBtn.classList.toggle("is-open");
+		hamBtn.setAttribute("aria-expanded", String(isOpen));
+		hamBtn.setAttribute("aria-label", isOpen ? "Zavřít menu" : "Otevřít menu");
+	});
+
+	mediaQuery.addEventListener("change", (e) => {
+		if (e.matches) {
+			navList?.classList.remove("is-open");
+			hamBtn?.classList.remove("is-open");
+			hamBtn?.setAttribute("aria-expanded", "false");
+			hamBtn?.setAttribute("aria-label", "Otevřít menu");
+		}
+	});
+</script>

@@ -1,0 +1,55 @@
+---
+import { webAddons } from "../../assets/data/pricing";
+---
+
+<div class="price-addons">
+	<h2>Doplňky</h2>
+	{
+		webAddons.map((addon) => (
+			<div class="addon-category">
+				<h3>{addon.category}</h3>
+				<p class="text-muted fs-small">{addon.description}</p>
+				<div class="addon-grid">
+					{addon.items.map((item) => (
+						<div class="card addon-card">
+							<h4>{item.title}</h4>
+							<p class="fs-small text-muted">{item.description}</p>
+							<p class="text-accent addon-price">{item.price}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.price-addons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
+	.addon-category {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+	}
+
+	.addon-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: var(--space-sm);
+	}
+
+	.addon-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+	}
+
+	.addon-price {
+		margin-top: auto;
+		padding-top: var(--space-sm);
+	}
+</style>

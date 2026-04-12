@@ -1,0 +1,122 @@
+---
+import Image from "astro/components/Image.astro";
+
+import img from "../assets/photo.jpeg";
+---
+
+<section class="padding-block-lg">
+	<div class="container">
+		<div class="even-columns">
+			<div class="flow">
+				<h2>Napiš mi</h2>
+				<p>
+					Máš vizi, kterou chceš oživit? Hledáš partnera pro svůj příští
+					projekt? Společně tvůj nápad navrhneme a zrealizujeme. Napište mi a
+					probereme, jak tvému projektu dodáme konkrétní podobu.
+				</p>
+				<ul class="check-list">
+					<li>Odpovím do 24 hodin</li>
+					<li>Nezávislá konzultace zdarma</li>
+					<li>Zeptej se mě bez závazku</li>
+				</ul>
+			</div>
+			<div class="card input-form">
+				<form
+					id="contact-form"
+					action=""
+					class="flow"
+					style="--flow-space: 1rem;"
+				>
+					<div class="form-part flow" style="--flow-space: 0.5rem;">
+						<label for="name">Vaše jméno</label>
+						<input type="text" id="name" name="name" required minlength="2" />
+					</div>
+					<div class="form-part flow" style="--flow-space: 0.5rem;">
+						<label for="email">Váš e-mail</label>
+						<input type="email" id="email" name="email" required />
+					</div>
+					<div class="form-part flow" style="--flow-space: 0.5rem;">
+						<label for="message">Zpráva</label>
+						<textarea
+							name="message"
+							id="message"
+							rows="5"
+							placeholder="Napiš mi zprávu..."
+							required
+							minlength="10"></textarea>
+					</div>
+					<button type="submit" class="btn primary-btn">Odeslat</button>
+				</form>
+				<p class="form-status" aria-live="polite"></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.form-part {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-status {
+		min-height: 1.5rem;
+	}
+
+	.form-status[data-status="success"] {
+		color: var(--stat-green);
+	}
+
+	.form-status[data-status="error"] {
+		color: var(--stat-red);
+	}
+
+	input,
+	textarea {
+		background: var(--bg-main);
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--clr-border);
+		border-radius: var(--border-radius);
+		color: var(--txt-main);
+	}
+
+	button:hover {
+		cursor: pointer;
+		border: none;
+	}
+</style>
+
+<script>
+	import { actions } from "astro:actions";
+
+	const form = document.querySelector<HTMLFormElement>("#contact-form");
+	const formStatus =
+		document.querySelector<HTMLParagraphElement>(".form-status");
+
+	form?.addEventListener("submit", async (e) => {
+		e.preventDefault();
+
+		const formData = new FormData(form);
+		const { error } = await actions.basicForm(formData);
+
+		if (error) {
+			if (formStatus) {
+				formStatus.dataset.status = "error";
+				formStatus.textContent = "Něco se pokazilo";
+			}
+		} else {
+			if (formStatus) {
+				formStatus.dataset.status = "success";
+				formStatus.textContent = "Odesláno";
+			}
+			form.reset();
+		}
+
+		setTimeout(() => {
+			if (formStatus) {
+				formStatus.textContent = "";
+				delete formStatus.dataset.status;
+			}
+		}, 3000);
+	});
+</script>
