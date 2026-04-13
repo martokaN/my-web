@@ -3,6 +3,8 @@ import icon from "astro-icon";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
+	// Pokud chceš používat SSR (on-demand rendering), musíš mít nastaveno:
+	output: "static",
 	integrations: [icon()],
 	image: {
 		responsiveStyles: true,
@@ -25,9 +27,13 @@ export default defineConfig({
 		},
 	],
 	adapter: cloudflare({
+		// 'directory' je pro Cloudflare Pages nejstabilnější režim
+		mode: "directory",
+		// Vypnutí proxy zabrání automatickému vytváření kolizních vazeb (ASSETS)
 		platformProxy: {
-			enabled: true,
+			enabled: false,
 		},
-		imageService: "passthrough",
+		// Pro Cloudflare Pages je lepší nechat optimalizaci na nich
+		imageService: "cloudflare",
 	}),
 });
