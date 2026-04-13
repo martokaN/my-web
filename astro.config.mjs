@@ -4,7 +4,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
 	// Pokud chceš používat SSR (on-demand rendering), musíš mít nastaveno:
-	output: "static",
+	output: "server",
 	integrations: [icon()],
 	image: {
 		responsiveStyles: true,
