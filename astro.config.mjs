@@ -1,17 +1,13 @@
-// @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import icon from "astro-icon";
-
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
 	integrations: [icon()],
-
 	image: {
 		responsiveStyles: true,
 		layout: "constrained",
 	},
-
 	fonts: [
 		{
 			provider: fontProviders.google(),
@@ -28,4 +24,9 @@ export default defineConfig({
 			subsets: ["latin", "latin-ext"],
 		},
 	],
+	adapter: cloudflare({
+		platformProxy: {
+			enabled: true,
+		},
+	}),
 });
