@@ -1,6 +1,6 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
-import { env } from "cloudflare:workers";
+import { getSecret } from "astro:env/server";
 
 export const server = {
 	basicForm: defineAction({
@@ -11,7 +11,14 @@ export const server = {
 			message: z.string().min(10),
 		}),
 		handler: async (input) => {
-			const webhookUrl = env.DISCORD_WEBHOOK_URL;
+			const webhookUrl = getSecret("DISCORD_WEBHOOK_URL");
+
+			if (!webhookUrl) {
+				throw new ActionError({
+					code: "NOT_FOUND",
+					message: "Discord webhook URL is undefined!",
+				});
+			}
 
 			const response = await fetch(webhookUrl, {
 				method: "POST",

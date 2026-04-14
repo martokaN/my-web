@@ -1,9 +1,9 @@
 import { defineConfig, fontProviders } from "astro/config";
 import icon from "astro-icon";
 import cloudflare from "@astrojs/cloudflare";
+import awsAmplify from "astro-aws-amplify";
 
 export default defineConfig({
-	// Pokud chceš používat SSR (on-demand rendering), musíš mít nastaveno:
 	output: "server",
 	integrations: [icon()],
 	image: {
@@ -26,14 +26,8 @@ export default defineConfig({
 			subsets: ["latin", "latin-ext"],
 		},
 	],
-	adapter: cloudflare({
-		// 'directory' je pro Cloudflare Pages nejstabilnější režim
-		mode: "directory",
-		// Vypnutí proxy zabrání automatickému vytváření kolizních vazeb (ASSETS)
-		platformProxy: {
-			enabled: false,
-		},
-		// Pro Cloudflare Pages je lepší nechat optimalizaci na nich
-		imageService: "cloudflare",
-	}),
+	// adapter: isProd
+	// 	? cloudflare({ platformProxy: { enabled: true } })
+	// 	: undefined,
+	adapter: awsAmplify(),
 });
